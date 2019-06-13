@@ -11,7 +11,7 @@ namespace WindowsFormsApp1
     class TDESKeys
     {
 
-        public List<byte[]> TDES_Keys()
+        public List<string> TDES_Keys()
         {
 
             TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
@@ -20,14 +20,16 @@ namespace WindowsFormsApp1
 
             byte[] TripleDESKey = tdes.Key;
             int size = 8;
-            var array = new List<byte[]>();
+            var array = new List<string>();
 
 
             for (var i = 0; i < (float)TripleDESKey.Length / size; i++)
             {
-                array.Add(TripleDESKey.Skip(i * size).Take(size).ToArray() );
+                array.Add(BitConverter.ToString(TripleDESKey.Skip(i * size).Take(size).ToArray()).Replace("-", string.Empty));
             }
-            
+
+            array.Add(BitConverter.ToString(tdes.IV).Replace("-", string.Empty));
+
             return array;
         }
 
