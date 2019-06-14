@@ -31,7 +31,7 @@ namespace WindowsFormsApp1
 
         List<byte[]> TDESKeysEncryptedImported;
 
-        List<byte[]> TDESKeysDecryptedContainer;
+        List<byte[]> TDESKeysDecryptedContainer = new List<byte[]>();
 
         string pathToFile = "";
         string pathToFileTDES = "";
@@ -78,7 +78,7 @@ namespace WindowsFormsApp1
 
         private void button3_Click(object sender, EventArgs e)
         {
-            using (XmlWriter writer = XmlWriter.Create("C:\\Users\\Vills\\Desktop\\cp_esclavo.xml"))
+            using (XmlWriter writer = XmlWriter.Create("C:\\Users\\Jaime\\Desktop\\cp_esclavo.xml"))
             {
                 writer.WriteElementString("clavepublica", ClavePublicaString);
                 writer.Flush();
@@ -92,7 +92,7 @@ namespace WindowsFormsApp1
             OpenFileDialog theDialog = new OpenFileDialog();
             theDialog.Title = "Clave Pública";
             theDialog.Filter = "XML files|*.xml";
-            theDialog.InitialDirectory = @"C:\Users\Vills\Desktop";
+            theDialog.InitialDirectory = @"C:\Users\Jaime\Desktop";
 
             if (theDialog.ShowDialog() == DialogResult.OK)
             {
@@ -118,6 +118,14 @@ namespace WindowsFormsApp1
         {
             TDESKeys TripleDesKeys = new TDESKeys();
             TDESKeys = TripleDesKeys.TDES_Keys();
+            IList<byte[]> test = new List<byte[]>();
+            for (var i = 0; i < 4; i++)
+            {
+                test.Add(convertir(TDESKeys[i]));
+                TDESKeysDecryptedContainer.Add(test[i]);
+
+            }
+
 
 
 
@@ -127,11 +135,22 @@ namespace WindowsFormsApp1
             Console.WriteLine("LLaves Originales [3] " + TDESKeys[3]);
         }
 
+        public byte[] convertir(string texto)
+        {
+            int Num = texto.Length;
+            byte[] bytes = new byte[Num / 2];
+            for (var x = 0; x < Num; x += 2)
+            {
+                bytes[x / 2] = Convert.ToByte(texto.Substring(x, 2), 16);
+            }
+            return bytes;
+        }
+
         //Metodo para encriptar las 3 llaves TDES con RSA y llave esclavo publica
         private void button6_Click(object sender, EventArgs e)
         {
             EncryptTDESKey TDESKeysEncrypted = new EncryptTDESKey();
-            EncryptedTDESKeys = TDESKeysEncrypted.RSAEncrypt(TDESKeys, ClavaPublicaParams.ExportParameters(false), false);
+            EncryptedTDESKeys = TDESKeysEncrypted.RSAEncrypt(TDESKeys, ClavaPublicaParams.ExportParameters(false), true);
 
             EncryptedTDESKeysHex = new List<string>();
             
@@ -154,7 +173,7 @@ namespace WindowsFormsApp1
                     new XElement("iv", EncryptedTDESKeysHex[3])
                 )
             )
-            .Save("C:\\Users\\Vills\\Desktop\\tdesencriptado.xml");
+            .Save("C:\\Users\\Jaime\\Desktop\\tdesencriptado.xml");
         }
 
 
@@ -169,7 +188,7 @@ namespace WindowsFormsApp1
         private void button9_Click(object sender, EventArgs e)
         {
             DecryptTDESKey TDESKeysDecrypted = new DecryptTDESKey();
-            TDESKeysDecryptedContainer = TDESKeysDecrypted.RSADecrypt(TDESKeysEncryptedImported, ClavePrivada, false);
+            TDESKeysDecryptedContainer = TDESKeysDecrypted.RSADecrypt(TDESKeysEncryptedImported, ClavePrivada, true);
 
             var probar = new List<string>();
 
@@ -210,7 +229,7 @@ namespace WindowsFormsApp1
                     new XElement("textoe", textEncrypted)
                 )
             )
-            .Save("C:\\Users\\Vills\\Desktop\\textoencriptado.xml");
+            .Save("C:\\Users\\Jaime\\Desktop\\textoencriptado.xml");
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -218,7 +237,7 @@ namespace WindowsFormsApp1
             OpenFileDialog theDialog = new OpenFileDialog();
             theDialog.Title = "Importar Texto Encriptado";
             theDialog.Filter = "XML files|*.xml";
-            theDialog.InitialDirectory = @"C:\Users\Vills\Desktop";
+            theDialog.InitialDirectory = @"C:\Users\Jaime\Desktop";
 
             if (theDialog.ShowDialog() == DialogResult.OK)
             {
