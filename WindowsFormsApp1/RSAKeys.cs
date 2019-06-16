@@ -12,16 +12,16 @@ class RSAKey
         return RSA;
     }
 
-    public Tuple<RSAParameters, RSAParameters> RSAKeys()
-    {
-        UnicodeEncoding ByteConverter = new UnicodeEncoding();
-        RSACryptoServiceProvider RSA = new RSACryptoServiceProvider(512);
+    //public Tuple<RSAParameters, RSAParameters> RSAKeys()
+    //{
+    //    UnicodeEncoding ByteConverter = new UnicodeEncoding();
+    //    RSACryptoServiceProvider RSA = new RSACryptoServiceProvider(512);
         
-        string privateKey = RSA.ToXmlString(true);
+    //    string privateKey = RSA.ToXmlString(true);
 
-    return new Tuple<RSAParameters, RSAParameters>(RSA.ExportParameters(false), RSA.ExportParameters(true));
+    //return new Tuple<RSAParameters, RSAParameters>(RSA.ExportParameters(false), RSA.ExportParameters(true));
 
-    }
+    //}
 
 }
 

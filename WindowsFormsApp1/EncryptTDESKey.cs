@@ -21,19 +21,14 @@ namespace WindowsFormsApp1
 
                 
                 var array = new List<byte[]>();
+                Form1 HexToBytes = new Form1();
 
                 
                     for (var i=0; i<4; i++) {
-                    int Num = TripleDESKeys[i].Length;
-                    byte[] bytes = new byte[Num / 2];
-                    for (var x=0; x< Num; x+=2) {
-                        bytes[x / 2] = Convert.ToByte(TripleDESKeys[i].Substring(x, 2), 16);
-                    }
-
+                    var bytes = HexToBytes.convertir(TripleDESKeys[i]);
                     array.Add(RSA.Encrypt(bytes, DoOAEPPadding));
 
-
-                }
+                    }
 
 
                 return array;

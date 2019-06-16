@@ -42,20 +42,13 @@ namespace WindowsFormsApp1
                 array.Add(tdes3[0].InnerText);
                 array.Add(IV[0].InnerText);
 
+                Form1 HexToBytes = new Form1();
+
                 for (var i = 0; i < 4; i++)
                 {
-                    int Num = array[i].Length;
-                    byte[] bytes = new byte[Num / 2];
-                    for (var x = 0; x < Num; x += 2)
-                    {
-                        bytes[x / 2] = Convert.ToByte(array[i].Substring(x, 2), 16);
-                    }
-
+                    var bytes = HexToBytes.convertir(array[i]);
                     FinalByteArray.Add(bytes);
-
-
                 }
-
 
             }
             return FinalByteArray;

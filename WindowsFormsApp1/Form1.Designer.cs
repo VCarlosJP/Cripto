@@ -33,6 +33,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.textoDesencriptado = new System.Windows.Forms.TextBox();
+            this.textoEncriptadoXML = new System.Windows.Forms.TextBox();
+            this.claveTDESEncriptada3 = new System.Windows.Forms.TextBox();
+            this.claveTDESEncriptada2 = new System.Windows.Forms.TextBox();
+            this.claveTDESEncriptada1 = new System.Windows.Forms.TextBox();
             this.claveTDES3 = new System.Windows.Forms.TextBox();
             this.claveTDES2 = new System.Windows.Forms.TextBox();
             this.claveTDES1 = new System.Windows.Forms.TextBox();
@@ -46,6 +51,13 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.resultadoTextoEncriptado = new System.Windows.Forms.TextBox();
+            this.claveTDESDesencriptada3 = new System.Windows.Forms.TextBox();
+            this.claveTDESDesencriptada2 = new System.Windows.Forms.TextBox();
+            this.claveTDESDesencriptada1 = new System.Windows.Forms.TextBox();
+            this.claveTDESEncriptadaEsclavo3 = new System.Windows.Forms.TextBox();
+            this.claveTDESEncriptadaEsclavo2 = new System.Windows.Forms.TextBox();
+            this.claveTDESEncriptadaEsclavo1 = new System.Windows.Forms.TextBox();
             this.valorClavePrivadaEsclavo = new System.Windows.Forms.TextBox();
             this.valorClavePublicaEsclavo = new System.Windows.Forms.TextBox();
             this.button11 = new System.Windows.Forms.Button();
@@ -58,18 +70,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.claveTDESEncriptada1 = new System.Windows.Forms.TextBox();
-            this.claveTDESEncriptada2 = new System.Windows.Forms.TextBox();
-            this.claveTDESEncriptada3 = new System.Windows.Forms.TextBox();
-            this.textoEncriptadoXML = new System.Windows.Forms.TextBox();
-            this.textoDesencriptado = new System.Windows.Forms.TextBox();
-            this.claveTDESEncriptadaEsclavo1 = new System.Windows.Forms.TextBox();
-            this.claveTDESEncriptadaEsclavo2 = new System.Windows.Forms.TextBox();
-            this.claveTDESEncriptadaEsclavo3 = new System.Windows.Forms.TextBox();
-            this.claveTDESDesencriptada1 = new System.Windows.Forms.TextBox();
-            this.claveTDESDesencriptada2 = new System.Windows.Forms.TextBox();
-            this.claveTDESDesencriptada3 = new System.Windows.Forms.TextBox();
-            this.resultadoTextoEncriptado = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -94,7 +94,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(104, 16);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Clave Publica";
+            this.label1.Text = "Clave Pública";
             // 
             // label3
             // 
@@ -145,6 +145,41 @@
             this.tabPage1.Size = new System.Drawing.Size(713, 481);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Maestro";
+            // 
+            // textoDesencriptado
+            // 
+            this.textoDesencriptado.Location = new System.Drawing.Point(145, 441);
+            this.textoDesencriptado.Name = "textoDesencriptado";
+            this.textoDesencriptado.Size = new System.Drawing.Size(416, 20);
+            this.textoDesencriptado.TabIndex = 24;
+            // 
+            // textoEncriptadoXML
+            // 
+            this.textoEncriptadoXML.Location = new System.Drawing.Point(239, 351);
+            this.textoEncriptadoXML.Name = "textoEncriptadoXML";
+            this.textoEncriptadoXML.Size = new System.Drawing.Size(364, 20);
+            this.textoEncriptadoXML.TabIndex = 23;
+            // 
+            // claveTDESEncriptada3
+            // 
+            this.claveTDESEncriptada3.Location = new System.Drawing.Point(158, 299);
+            this.claveTDESEncriptada3.Name = "claveTDESEncriptada3";
+            this.claveTDESEncriptada3.Size = new System.Drawing.Size(364, 20);
+            this.claveTDESEncriptada3.TabIndex = 22;
+            // 
+            // claveTDESEncriptada2
+            // 
+            this.claveTDESEncriptada2.Location = new System.Drawing.Point(158, 273);
+            this.claveTDESEncriptada2.Name = "claveTDESEncriptada2";
+            this.claveTDESEncriptada2.Size = new System.Drawing.Size(364, 20);
+            this.claveTDESEncriptada2.TabIndex = 21;
+            // 
+            // claveTDESEncriptada1
+            // 
+            this.claveTDESEncriptada1.Location = new System.Drawing.Point(158, 246);
+            this.claveTDESEncriptada1.Name = "claveTDESEncriptada1";
+            this.claveTDESEncriptada1.Size = new System.Drawing.Size(364, 20);
+            this.claveTDESEncriptada1.TabIndex = 20;
             // 
             // claveTDES3
             // 
@@ -283,6 +318,55 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Esclavo";
             // 
+            // resultadoTextoEncriptado
+            // 
+            this.resultadoTextoEncriptado.Location = new System.Drawing.Point(161, 389);
+            this.resultadoTextoEncriptado.Name = "resultadoTextoEncriptado";
+            this.resultadoTextoEncriptado.Size = new System.Drawing.Size(378, 20);
+            this.resultadoTextoEncriptado.TabIndex = 25;
+            // 
+            // claveTDESDesencriptada3
+            // 
+            this.claveTDESDesencriptada3.Location = new System.Drawing.Point(319, 247);
+            this.claveTDESDesencriptada3.Name = "claveTDESDesencriptada3";
+            this.claveTDESDesencriptada3.Size = new System.Drawing.Size(289, 20);
+            this.claveTDESDesencriptada3.TabIndex = 24;
+            // 
+            // claveTDESDesencriptada2
+            // 
+            this.claveTDESDesencriptada2.Location = new System.Drawing.Point(319, 221);
+            this.claveTDESDesencriptada2.Name = "claveTDESDesencriptada2";
+            this.claveTDESDesencriptada2.Size = new System.Drawing.Size(289, 20);
+            this.claveTDESDesencriptada2.TabIndex = 23;
+            // 
+            // claveTDESDesencriptada1
+            // 
+            this.claveTDESDesencriptada1.Location = new System.Drawing.Point(319, 194);
+            this.claveTDESDesencriptada1.Name = "claveTDESDesencriptada1";
+            this.claveTDESDesencriptada1.Size = new System.Drawing.Size(289, 20);
+            this.claveTDESDesencriptada1.TabIndex = 22;
+            // 
+            // claveTDESEncriptadaEsclavo3
+            // 
+            this.claveTDESEncriptadaEsclavo3.Location = new System.Drawing.Point(319, 138);
+            this.claveTDESEncriptadaEsclavo3.Name = "claveTDESEncriptadaEsclavo3";
+            this.claveTDESEncriptadaEsclavo3.Size = new System.Drawing.Size(289, 20);
+            this.claveTDESEncriptadaEsclavo3.TabIndex = 21;
+            // 
+            // claveTDESEncriptadaEsclavo2
+            // 
+            this.claveTDESEncriptadaEsclavo2.Location = new System.Drawing.Point(319, 112);
+            this.claveTDESEncriptadaEsclavo2.Name = "claveTDESEncriptadaEsclavo2";
+            this.claveTDESEncriptadaEsclavo2.Size = new System.Drawing.Size(289, 20);
+            this.claveTDESEncriptadaEsclavo2.TabIndex = 20;
+            // 
+            // claveTDESEncriptadaEsclavo1
+            // 
+            this.claveTDESEncriptadaEsclavo1.Location = new System.Drawing.Point(319, 86);
+            this.claveTDESEncriptadaEsclavo1.Name = "claveTDESEncriptadaEsclavo1";
+            this.claveTDESEncriptadaEsclavo1.Size = new System.Drawing.Size(289, 20);
+            this.claveTDESEncriptadaEsclavo1.TabIndex = 19;
+            // 
             // valorClavePrivadaEsclavo
             // 
             this.valorClavePrivadaEsclavo.Location = new System.Drawing.Point(289, 42);
@@ -314,7 +398,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(247, 20);
             this.textBox1.TabIndex = 15;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label12
             // 
@@ -399,91 +482,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(104, 16);
             this.label8.TabIndex = 6;
-            this.label8.Text = "Clave Publica";
-            // 
-            // claveTDESEncriptada1
-            // 
-            this.claveTDESEncriptada1.Location = new System.Drawing.Point(158, 246);
-            this.claveTDESEncriptada1.Name = "claveTDESEncriptada1";
-            this.claveTDESEncriptada1.Size = new System.Drawing.Size(364, 20);
-            this.claveTDESEncriptada1.TabIndex = 20;
-            // 
-            // claveTDESEncriptada2
-            // 
-            this.claveTDESEncriptada2.Location = new System.Drawing.Point(158, 273);
-            this.claveTDESEncriptada2.Name = "claveTDESEncriptada2";
-            this.claveTDESEncriptada2.Size = new System.Drawing.Size(364, 20);
-            this.claveTDESEncriptada2.TabIndex = 21;
-            // 
-            // claveTDESEncriptada3
-            // 
-            this.claveTDESEncriptada3.Location = new System.Drawing.Point(158, 299);
-            this.claveTDESEncriptada3.Name = "claveTDESEncriptada3";
-            this.claveTDESEncriptada3.Size = new System.Drawing.Size(364, 20);
-            this.claveTDESEncriptada3.TabIndex = 22;
-            // 
-            // textoEncriptadoXML
-            // 
-            this.textoEncriptadoXML.Location = new System.Drawing.Point(239, 351);
-            this.textoEncriptadoXML.Name = "textoEncriptadoXML";
-            this.textoEncriptadoXML.Size = new System.Drawing.Size(364, 20);
-            this.textoEncriptadoXML.TabIndex = 23;
-            // 
-            // textoDesencriptado
-            // 
-            this.textoDesencriptado.Location = new System.Drawing.Point(145, 441);
-            this.textoDesencriptado.Name = "textoDesencriptado";
-            this.textoDesencriptado.Size = new System.Drawing.Size(416, 20);
-            this.textoDesencriptado.TabIndex = 24;
-            // 
-            // claveTDESEncriptadaEsclavo1
-            // 
-            this.claveTDESEncriptadaEsclavo1.Location = new System.Drawing.Point(319, 86);
-            this.claveTDESEncriptadaEsclavo1.Name = "claveTDESEncriptadaEsclavo1";
-            this.claveTDESEncriptadaEsclavo1.Size = new System.Drawing.Size(289, 20);
-            this.claveTDESEncriptadaEsclavo1.TabIndex = 19;
-            // 
-            // claveTDESEncriptadaEsclavo2
-            // 
-            this.claveTDESEncriptadaEsclavo2.Location = new System.Drawing.Point(319, 112);
-            this.claveTDESEncriptadaEsclavo2.Name = "claveTDESEncriptadaEsclavo2";
-            this.claveTDESEncriptadaEsclavo2.Size = new System.Drawing.Size(289, 20);
-            this.claveTDESEncriptadaEsclavo2.TabIndex = 20;
-            // 
-            // claveTDESEncriptadaEsclavo3
-            // 
-            this.claveTDESEncriptadaEsclavo3.Location = new System.Drawing.Point(319, 138);
-            this.claveTDESEncriptadaEsclavo3.Name = "claveTDESEncriptadaEsclavo3";
-            this.claveTDESEncriptadaEsclavo3.Size = new System.Drawing.Size(289, 20);
-            this.claveTDESEncriptadaEsclavo3.TabIndex = 21;
-            // 
-            // claveTDESDesencriptada1
-            // 
-            this.claveTDESDesencriptada1.Location = new System.Drawing.Point(319, 194);
-            this.claveTDESDesencriptada1.Name = "claveTDESDesencriptada1";
-            this.claveTDESDesencriptada1.Size = new System.Drawing.Size(289, 20);
-            this.claveTDESDesencriptada1.TabIndex = 22;
-            // 
-            // claveTDESDesencriptada2
-            // 
-            this.claveTDESDesencriptada2.Location = new System.Drawing.Point(319, 221);
-            this.claveTDESDesencriptada2.Name = "claveTDESDesencriptada2";
-            this.claveTDESDesencriptada2.Size = new System.Drawing.Size(289, 20);
-            this.claveTDESDesencriptada2.TabIndex = 23;
-            // 
-            // claveTDESDesencriptada3
-            // 
-            this.claveTDESDesencriptada3.Location = new System.Drawing.Point(319, 247);
-            this.claveTDESDesencriptada3.Name = "claveTDESDesencriptada3";
-            this.claveTDESDesencriptada3.Size = new System.Drawing.Size(289, 20);
-            this.claveTDESDesencriptada3.TabIndex = 24;
-            // 
-            // resultadoTextoEncriptado
-            // 
-            this.resultadoTextoEncriptado.Location = new System.Drawing.Point(161, 389);
-            this.resultadoTextoEncriptado.Name = "resultadoTextoEncriptado";
-            this.resultadoTextoEncriptado.Size = new System.Drawing.Size(378, 20);
-            this.resultadoTextoEncriptado.TabIndex = 25;
+            this.label8.Text = "Clave Pública";
             // 
             // Form1
             // 

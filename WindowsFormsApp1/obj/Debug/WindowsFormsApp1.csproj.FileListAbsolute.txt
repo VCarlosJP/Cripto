@@ -8,7 +8,6 @@ C:\Users\Vills\Documents\Universidad\Criptografia\WindowsFormsApp1\WindowsFormsA
 C:\Users\Vills\Documents\Universidad\Criptografia\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
 C:\Users\Vills\Documents\Universidad\Criptografia\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\Vills\Documents\Universidad\Criptografia\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
-C:\Users\Vills\Documents\Universidad\Criptografia\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form2.resources
 C:\Users\Jaime\source\repos\Cripto\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
 C:\Users\Jaime\source\repos\Cripto\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
 C:\Users\Jaime\source\repos\Cripto\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb

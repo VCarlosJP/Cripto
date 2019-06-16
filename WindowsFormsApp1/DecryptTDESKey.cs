@@ -13,13 +13,11 @@ namespace WindowsFormsApp1
         {
             try
             {
-
-
                 RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+
                 RSA.ImportParameters(RSAKeyInfo);
 
                 UnicodeEncoding ByteConverter = new UnicodeEncoding();
-
                 var array = new List<byte[]>();
 
                 for (var i=0; i<4; i++) {
@@ -33,7 +31,7 @@ namespace WindowsFormsApp1
             catch (CryptographicException e)
             {
                 Console.WriteLine(e.ToString());
-                Console.WriteLine("Cague");
+                Console.WriteLine("Error");
                 return null;
             }
 

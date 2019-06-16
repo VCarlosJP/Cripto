@@ -11,27 +11,30 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        //Lllave publica para probar
+        //Llaves Publicas y Privadas para poder trabajar internamente
         RSAParameters ClavePublica;
-        string ClavePublicaString;
-        //Llave Privada
         RSAParameters ClavePrivada;
-        //Variable que almacenara las 3 llaves TDES 
-        List<string> TDESKeys;
+        
+        //Esta variable contendra la llave publica en formato string xml
+        string ClavePublicaString;
 
-        //Variable que convierte el String PublicKey a RSAParameters
+        //Almacena la llave publica cuando esta es importada de un fichero XML
+        string publicKey = "";
+
+        //Variable que convierte la variable global 'publickey' a RSAParameters
         RSACryptoServiceProvider ClavaPublicaParams = new RSACryptoServiceProvider();
 
+        //Lista que almacenara las 3 llaves TDES 
+        List<string> TDESKeys;
+
+        //Almacena las TDES Keys y el valor IV provenientes del fichero XML
         List<byte[]> TDESKeysEncryptedImported;
 
         List<byte[]> TDESKeysDecryptedContainer = new List<byte[]>();
 
         string pathToFile = "";
-        string pathToFileTDES = "";
-        string publicKey = "";
-
-        //Variable que almacena la ruta del textoencriptado.xml
-        string pathToFileImportEncryptedText = "";
+        
+        
         //Variable que almacena el texto encriptado obtenido del fichero xml
         string ImportEncryptedText = "";
 
@@ -46,10 +49,13 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
+
+            //Inicilización de Textos para TextBox
+
             //InputsMaestro
             valorClavePublica.Text = "<Valor de la Clave>";
             valorClavePrivada.Text = "<Valor de la Clave>";
-            importarClavePublicaEsclavo.Text = "<Valor de la Clave Publica Esclavo>";
+            importarClavePublicaEsclavo.Text = "<Valor de la Clave Pública Esclavo>";
             claveTDES1.Text = "<Valor de la Clave TDES>";
             claveTDES2.Text = "<Valor de la Clave TDES>";
             claveTDES3.Text = "<Valor de la Clave TDES>";
@@ -70,77 +76,42 @@ namespace WindowsFormsApp1
             resultadoTextoEncriptado.Text = "<Resultado de Texto Encriptado>";
         }
 
+
+        //******************************************
+        //Funcionalidad de Botones Maestro y Esclavo
+        //******************************************
+
+
         //Generar Claves RSA (VistaMaestro)
         private void button1_Click(object sender, EventArgs e)
         {
-            var culero = new RSAKey();
-            var Items = culero.get();
-            ClavePublica = Items.ExportParameters(false);
-            ClavePrivada = Items.ExportParameters(true);
-            ClavePublicaString = Items.ToXmlString(false);
-            valorClavePublica.Text = ClavePublicaString;
-            valorClavePrivada.Text = Items.ToXmlString(true);
-            valorClavePublicaEsclavo.Text = ClavePublicaString;
-            valorClavePrivadaEsclavo.Text = Items.ToXmlString(true);
+            generarLlavesRSA();
         }
 
         //Generar Claves RSA (VistaEsclavo)
         private void button2_Click(object sender, EventArgs e)
         {
-            var culero = new RSAKey();
-            var Items = culero.get();
-            ClavePublica = Items.ExportParameters(false);
-            ClavePrivada = Items.ExportParameters(true);
-            ClavePublicaString = Items.ToXmlString(false);
-            valorClavePublica.Text = ClavePublicaString;
-            valorClavePrivada.Text = Items.ToXmlString(true);
-            valorClavePublicaEsclavo.Text = ClavePublicaString;
-            valorClavePrivadaEsclavo.Text = Items.ToXmlString(true);
+            generarLlavesRSA();
         }
 
         //Metodo para generar XML con llave RSA Publica
         private void button3_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "XML files|*.xml";
-            saveFileDialog1.Title = "Exportar XML con Claves TDES Encriptadas";
-            saveFileDialog1.FileName = "cp_esclavo.xml";
-            saveFileDialog1.ShowDialog();
+            var type = "clavepublica";
+            string fileName = "cp_esclavo.xml";
 
-            using (XmlWriter writer = XmlWriter.Create(Path.GetFullPath(saveFileDialog1.FileName)))
-            {
-                writer.WriteElementString("clavepublica", ClavePublicaString);
-                writer.Flush();
-            }
+            exportarFicheroXML(type, ClavePublicaString, fileName);
+
         }
 
-        //Metodo para importar clave Publica Esclavo de XML
+        //Metodo para importar Llave RSA Publica desde fichero XML
         private void button4_Click(object sender, EventArgs e)
         {
-            OpenFileDialog theDialog = new OpenFileDialog();
-            theDialog.Title = "Clave Pública";
-            theDialog.Filter = "XML files|*.xml";
-            theDialog.InitialDirectory = @"C:\Users\Vills\Desktop";
+            string type = "clavepublica";
+            publicKey = importarFicheroXML(type);
 
-            if (theDialog.ShowDialog() == DialogResult.OK)
-            {
-                pathToFile = theDialog.FileName;
-            }
-
-            if (File.Exists(pathToFile))// only executes if the file at pathtofile exists//you need to add the using System.IO reference at the top of te code to use this
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(pathToFile);
-
-                XmlNodeList elemList = doc.GetElementsByTagName("clavepublica");
-                for (int i = 0; i < elemList.Count; i++)
-                {
-                    publicKey = elemList[i].InnerText;
-                }
-                ClavaPublicaParams.FromXmlString(publicKey);
-
-                importarClavePublicaEsclavo.Text = publicKey;
-            }
+            ClavaPublicaParams.FromXmlString(publicKey);
+            importarClavePublicaEsclavo.Text = publicKey;
         }
 
         //Metodo que genera llaves TDES
@@ -149,6 +120,7 @@ namespace WindowsFormsApp1
             TDESKeys TripleDesKeys = new TDESKeys();
             TDESKeys = TripleDesKeys.TDES_Keys();
             IList<byte[]> test = new List<byte[]>();
+
             for (var i = 0; i < 4; i++)
             {
                 test.Add(convertir(TDESKeys[i]));
@@ -161,16 +133,6 @@ namespace WindowsFormsApp1
 
         }
 
-        public byte[] convertir(string texto)
-        {
-            int Num = texto.Length;
-            byte[] bytes = new byte[Num / 2];
-            for (var x = 0; x < Num; x += 2)
-            {
-                bytes[x / 2] = Convert.ToByte(texto.Substring(x, 2), 16);
-            }
-            return bytes;
-        }
 
         //Metodo para encriptar las 3 llaves TDES con RSA y llave esclavo publica
         private void button6_Click(object sender, EventArgs e)
@@ -210,7 +172,7 @@ namespace WindowsFormsApp1
                     new XElement("iv", EncryptedTDESKeysHex[3])
                 )
             ).Save(Path.GetFullPath(saveFileDialog1.FileName));
-            //.Save("C:\\Users\\Vills\\Desktop\\tdesencriptado.xml");
+            
         }
 
 
@@ -260,60 +222,25 @@ namespace WindowsFormsApp1
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         //Expotar Mensaje Encriptado a fichero XML
         private void button11_Click_1(object sender, EventArgs e)
         {
             string textEncrypted = BitConverter.ToString(textEncryptedTDES).Replace("-", "");
+            string type = "textoe";
+            string fileName = "textoencriptado.xml";
 
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "XML files|*.xml";
-            saveFileDialog1.Title = "Exportar Texto Encriptado";
-            saveFileDialog1.FileName = "textoencriptado.xml";
-            saveFileDialog1.ShowDialog();
-
-            new XDocument(
-                new XElement("root",
-                    new XElement("textoe", textEncrypted)
-                )
-            )
-            .Save(Path.GetFullPath(saveFileDialog1.FileName));
-
-
+            exportarFicheroXML(type, textEncrypted, fileName);
         }
 
+        //Importar Texto encriptado desde XML
         private void button12_Click(object sender, EventArgs e)
         {
-            OpenFileDialog theDialog = new OpenFileDialog();
-            theDialog.Title = "Importar Texto Encriptado";
-            theDialog.Filter = "XML files|*.xml";
-            theDialog.InitialDirectory = @"C:\Users\Vills\Desktop";
-
-            if (theDialog.ShowDialog() == DialogResult.OK)
-            {
-                pathToFileImportEncryptedText = theDialog.FileName;
-            }
-
-            if (File.Exists(pathToFileImportEncryptedText))// only executes if the file at pathtofile exists//you need to add the using System.IO reference at the top of te code to use this
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(pathToFileImportEncryptedText);
-
-                XmlNodeList elemList = doc.GetElementsByTagName("textoe");
-                for (int i = 0; i < elemList.Count; i++)
-                {
-                    ImportEncryptedText = elemList[i].InnerText;
-                }
-                
-            }
-
+            string type = "textoe";
+            ImportEncryptedText = importarFicheroXML(type);
             textoEncriptadoXML.Text = ImportEncryptedText;
         }
 
+        //Desencriptar Texto
         private void button13_Click(object sender, EventArgs e)
         {
             var tdes = TDESKeysDecryptedContainer[0].Concat(TDESKeysDecryptedContainer[1]).Concat(TDESKeysDecryptedContainer[2]).ToArray();
@@ -321,19 +248,95 @@ namespace WindowsFormsApp1
 
             TDESDecrypter TDES = new TDESDecrypter();
 
-            int Num = ImportEncryptedText.Length;
+            var TextoDesenciptado= TDES.DecryptTextFromMemory(convertir(ImportEncryptedText), tdes, iv);
+            textoDesencriptado.Text = TextoDesenciptado;
+        }
+
+
+
+
+
+        //***********************************************************
+        //METODOS que se repiten
+        //***********************************************************
+
+
+        //Generación de Llaves RSA Maestro/Esclavo
+        public void generarLlavesRSA() {
+
+            var llaves = new RSAKey();
+            var Items = llaves.get();
+            ClavePublica = Items.ExportParameters(false);
+            ClavePrivada = Items.ExportParameters(true);
+            ClavePublicaString = Items.ToXmlString(false);
+
+            valorClavePublica.Text = ClavePublicaString;
+            valorClavePrivada.Text = Items.ToXmlString(true);
+            valorClavePublicaEsclavo.Text = ClavePublicaString;
+            valorClavePrivadaEsclavo.Text = Items.ToXmlString(true);
+        }
+
+        //Metodo para importar Fichero XML
+
+        public string importarFicheroXML(string type) {
+
+            OpenFileDialog theDialog = new OpenFileDialog();
+            theDialog.Title = "Importal Fichero XML";
+            theDialog.Filter = "XML files|*.xml";
+
+            string Container = "";
+
+
+            if (theDialog.ShowDialog() == DialogResult.OK)
+            {
+                pathToFile = theDialog.FileName;
+            }
+
+            if (File.Exists(pathToFile))
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(pathToFile);
+                XmlNodeList elemList = doc.GetElementsByTagName(type);
+                for (int i = 0; i < elemList.Count; i++)
+                {
+                    Container = elemList[i].InnerText;
+                }
+            }
+            return Container;
+        }
+
+        //Exportar a Fichero XML
+        public void exportarFicheroXML(string type, string textToSave, string fileName) {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "XML files|*.xml";
+            saveFileDialog1.Title = "Exportar Texto Encriptado";
+            saveFileDialog1.FileName = fileName;
+            saveFileDialog1.ShowDialog();
+
+            new XDocument(
+                new XElement("root",
+                    new XElement(type, textToSave)
+                )
+            )
+            .Save(Path.GetFullPath(saveFileDialog1.FileName));
+        }
+
+
+        //Encargado de convertir cadenas Hexadecimales a Bytes
+        public byte[] convertir(string texto)
+        {
+            
+            int Num = texto.Length;
             byte[] bytes = new byte[Num / 2];
             for (var x = 0; x < Num; x += 2)
             {
-                bytes[x / 2] = Convert.ToByte(ImportEncryptedText.Substring(x, 2), 16);
+                bytes[x / 2] = Convert.ToByte(texto.Substring(x, 2), 16);
             }
-
-           var a= TDES.DecryptTextFromMemory(bytes, tdes, iv);
-
-            textoDesencriptado.Text = a;
-
-
+            return bytes;
         }
 
-    }
+
+
+
+}
 }
