@@ -29,8 +29,6 @@ namespace WindowsFormsApp1
                     array.Add(RSA.Encrypt(bytes, DoOAEPPadding));
 
                     }
-
-
                 return array;
             }
 

@@ -219,10 +219,9 @@ namespace WindowsFormsApp1
             textEncryptedTDES = TDES.EncryptTextToMemory(textToEncrypt, tdes, iv);
 
             resultadoTextoEncriptado.Text = BitConverter.ToString(textEncryptedTDES).Replace("-", "");
-
         }
 
-        //Expotar Mensaje Encriptado a fichero XML
+        //Exportar Mensaje Encriptado a fichero XML
         private void button11_Click_1(object sender, EventArgs e)
         {
             string textEncrypted = BitConverter.ToString(textEncryptedTDES).Replace("-", "");
